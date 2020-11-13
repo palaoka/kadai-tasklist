@@ -1,0 +1,4 @@
+6.3 app/view/layout/application の　
+<body>
+    <%= render 'layouts/navbar' %>
+を非表示
