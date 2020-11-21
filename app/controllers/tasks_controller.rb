@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
     before_action :require_user_logged_in
-    before_action :correct_user, only: [:show]
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
+    before_action :correct_user, only: [:edit, :update, :destroy, :show]
+    before_action :set_task, only: [:edit, :update, :destroy, :show]
     
     def index
         @task = current_user.tasks.build  # form_with 用
@@ -13,6 +13,7 @@ class TasksController < ApplicationController
     
     
     def create
+      #@task = current_user.tasks.build(task_params)
       @task = current_user.tasks.build(task_params)
         
         if @task.save
@@ -25,7 +26,7 @@ class TasksController < ApplicationController
     end
     
     def new
-        @task = Task.new
+        @task = current_user.tasks.build
     end
     
     def edit
@@ -52,7 +53,7 @@ class TasksController < ApplicationController
     private
     
     def set_task
-        @task = Task.find(params[:id])
+        @task = current_user.tasks.find_by(id: params[:id])
     end
     
     def task_params
